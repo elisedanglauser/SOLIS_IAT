@@ -347,7 +347,7 @@ runBlock(block5_test,5,"test");
 
 timeline.push({
 type: jsPsychHtmlKeyboardResponse,
-stimulus: `<img src="end.jpg" style="height:90vh; width:auto;">`,
+stimulus: `<img src="end.jpg" style="height:100vh; width:auto;">`,
 choices: ["a","l"," "]
 });
 
@@ -358,6 +358,7 @@ fullscreen_mode:false
 
 
 jsPsych.run(timeline);
+
 
 
 
