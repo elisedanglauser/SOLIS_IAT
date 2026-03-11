@@ -59,22 +59,24 @@ a.click();
 
 /* ---------- PCLOUD AUTO UPLOAD ---------- */
 
+console.log("Starting pCloud upload...");
+
 const uploadCode = "0UC7ZFmYMKNWnOyB3dxOYVJ6RBuUOMcxy";
 
 const formData = new FormData();
-formData.append("upload_code", uploadCode);
+formData.append("code", uploadCode);
 formData.append("files", blob, filename);
 
-fetch("https://e.pcloud.com/uploadfile", {
+fetch("https://api.pcloud.com/uploadtolink", {
   method: "POST",
   body: formData
 })
-.then(res => res.json())
+.then(response => response.json())
 .then(data => {
-  console.log("pCloud upload success:", data);
+  console.log("pCloud upload response:", data);
 })
-.catch(err => {
-  console.error("pCloud upload failed:", err);
+.catch(error => {
+  console.error("pCloud upload failed:", error);
 });
 
 
@@ -359,4 +361,5 @@ fullscreen_mode:false
 
 
 jsPsych.run(timeline);
+
 
