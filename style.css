@@ -5,9 +5,10 @@ body {
 }
 
 img {
-    max-height: 80vh;
+    max-height: 95vh;
 }
 
 .jspsych-content {
-    max-width: 90%;
+    max-width: 100%;
+
 }
