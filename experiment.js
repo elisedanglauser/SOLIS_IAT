@@ -57,27 +57,24 @@ const jsPsych = initJsPsych({
     a.click();
 
 
-    /* ---------- PCLOUD AUTO UPLOAD ---------- */
+/* ---------- SEND FILE TO CLOUD WORKER ---------- */
 
-    console.log("Starting pCloud upload...");
+console.log("Sending file to Worker...");
 
-    const uploadCode = "0UC7ZFmYMKNWnOyB3dxOYVJ6RBuUOMcxy";
+const uploadData = new FormData();
+uploadData.append("file", blob, filename);
 
-    const formData = new FormData();
-    formData.append("code", uploadCode);
-    formData.append("files", blob, filename);
-
-    fetch("https://eapi.pcloud.com/uploadtolink", {
-      method: "POST",
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log("pCloud upload response:", data);
-    })
-    .catch(error => {
-      console.error("pCloud upload failed:", error);
-    });
+fetch("https://solis-iat-upload.elise-danglauser.workers.dev", {
+  method: "POST",
+  body: uploadData
+})
+.then(res => res.text())
+.then(data => {
+  console.log("Worker upload response:", data);
+})
+.catch(err => {
+  console.error("Worker upload failed:", err);
+});
 
   }
 });
@@ -361,6 +358,7 @@ fullscreen_mode:false
 
 
 jsPsych.run(timeline);
+
 
 
 
