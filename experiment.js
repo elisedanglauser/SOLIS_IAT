@@ -79,6 +79,7 @@ fetch("https://api.pcloud.com/uploadtolink", {
 });
 
 }   // <-- end of the jsPsych on_finish function
+});
 
 let timeline = [];
 
@@ -359,6 +360,7 @@ fullscreen_mode:false
 
 
 jsPsych.run(timeline);
+
 
 
 
