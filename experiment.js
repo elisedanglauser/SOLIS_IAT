@@ -6,8 +6,8 @@ const jsPsych = initJsPsych({
     const participantRow = jsPsych.data.get().filter({task:"participant"}).values()[0];
     let participant = "";
 
-    if (participantRow && participantRow.response){
-      if(typeof participantRow.response === "string"){
+    if (participantRow && participantRow.response) {
+      if (typeof participantRow.response === "string") {
         participant = JSON.parse(participantRow.response).Q0 || "";
       } else {
         participant = participantRow.response.Q0 || "";
@@ -17,10 +17,18 @@ const jsPsych = initJsPsych({
     const versionRow = jsPsych.data.get().filter({task:"version"}).values()[0];
     const V = versionRow ? versionRow.version : "";
 
-    let csv =
-"Version,Block,TrialType,ShownWord,ToucheBonneReponse,Reponse,RT_FirstPress,RT_Final,Participant,TrialIndex\n";
+    const now = new Date();
+    const timestamp =
+      now.getFullYear().toString() +
+      String(now.getMonth() + 1).padStart(2, "0") +
+      String(now.getDate()).padStart(2, "0") +
+      String(now.getHours()).padStart(2, "0") +
+      String(now.getMinutes()).padStart(2, "0");
 
-    exportedRows.forEach((r,i)=>{
+    let csv =
+      "Version,Block,TrialType,ShownWord,ToucheBonneReponse,Reponse,RT_FirstPress,RT_Final,Participant,TrialIndex\n";
+
+    exportedRows.forEach((r, i) => {
       csv += [
         V,
         r.Block,
@@ -31,54 +39,47 @@ const jsPsych = initJsPsych({
         r.RT_FirstPress,
         r.RT_Final,
         participant,
-        i+1
+        i + 1
       ].join(",") + "\n";
     });
 
-    const now = new Date();
+    const filename = `${participant}_${timestamp}_results.csv`;
 
-	const timestamp =
-	now.getFullYear().toString() +
-	String(now.getMonth() + 1).padStart(2, "0") +
-	String(now.getDate()).padStart(2, "0") +
-	String(now.getHours()).padStart(2, "0") +
-	String(now.getMinutes()).padStart(2, "0");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
 
-	const filename = `${participant}_${timestamp}.csv`;
 
-    const blob = new Blob([csv], {type:"text/csv"});
-const url = URL.createObjectURL(blob);
+    /* ---------- LOCAL DOWNLOAD (ESA backup) ---------- */
 
-/* ---------- LOCAL DOWNLOAD (ESA backup) ---------- */
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
 
-const a = document.createElement("a");
-a.href = url;
-a.download = filename;
-a.click();
 
-/* ---------- PCLOUD AUTO UPLOAD ---------- */
+    /* ---------- PCLOUD AUTO UPLOAD ---------- */
 
-console.log("Starting pCloud upload...");
+    console.log("Starting pCloud upload...");
 
-const uploadCode = "0UC7ZFmYMKNWnOyB3dxOYVJ6RBuUOMcxy";
+    const uploadCode = "0UC7ZFmYMKNWnOyB3dxOYVJ6RBuUOMcxy";
 
-const formData = new FormData();
-formData.append("code", uploadCode);
-formData.append("files", blob, filename);
+    const formData = new FormData();
+    formData.append("code", uploadCode);
+    formData.append("files", blob, filename);
 
-fetch("https://api.pcloud.com/uploadtolink", {
-  method: "POST",
-  body: formData
-})
-.then(response => response.json())
-.then(data => {
-  console.log("pCloud upload response:", data);
-})
-.catch(error => {
-  console.error("pCloud upload failed:", error);
-});
+    fetch("https://api.pcloud.com/uploadtolink", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log("pCloud upload response:", data);
+    })
+    .catch(error => {
+      console.error("pCloud upload failed:", error);
+    });
 
-}   // <-- end of the jsPsych on_finish function
+  }
 });
 
 let timeline = [];
@@ -360,6 +361,7 @@ fullscreen_mode:false
 
 
 jsPsych.run(timeline);
+
 
 
 
