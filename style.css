@@ -6,9 +6,11 @@ body {
 
 img {
     max-height: 95vh;
+    width:auto;
 }
 
 .jspsych-content {
     max-width: 100%;
 
 }
+
