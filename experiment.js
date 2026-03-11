@@ -46,16 +46,15 @@ const jsPsych = initJsPsych({
 
 	const filename = `${participant}_${timestamp}.csv`;
 
-    const blob = new Blob([csv],{type:"text/csv"});
+    const blob = new Blob([csv], {type:"text/csv"});
 const url = URL.createObjectURL(blob);
 
-/* LOCAL DOWNLOAD (backup on ESA machine) */
+/* ---------- LOCAL DOWNLOAD (ESA backup) ---------- */
 
 const a = document.createElement("a");
 a.href = url;
 a.download = filename;
 a.click();
-
 
 /* ---------- PCLOUD AUTO UPLOAD ---------- */
 
@@ -78,7 +77,6 @@ fetch("https://api.pcloud.com/uploadtolink", {
 .catch(error => {
   console.error("pCloud upload failed:", error);
 });
-
 
 }   // <-- end of the jsPsych on_finish function
 
@@ -361,5 +359,6 @@ fullscreen_mode:false
 
 
 jsPsych.run(timeline);
+
 
 
