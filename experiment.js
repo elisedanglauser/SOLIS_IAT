@@ -172,9 +172,9 @@ return trials;
 
 function makeBlockInstruction(imageFile){
 return {
-type:jsPsychImageKeyboardResponse,
-stimulus:imageFile,
-choices:["a","l"]
+type: jsPsychHtmlKeyboardResponse,
+stimulus: `<img src="${imageFile}" style="max-height:100vh; width:auto; object-fit:contain;">`,
+choices: ["a","l"]
 };
 }
 
@@ -305,9 +305,9 @@ timeline.push(makePersistentTrial(t.image,t.correct,block,type));
 /* ---------- START ---------- */
 
 timeline.push({
-type:jsPsychImageKeyboardResponse,
-stimulus:"start.jpg",
-choices:"ALL_KEYS"
+type: jsPsychHtmlKeyboardResponse,
+stimulus: `<img src="start.jpg" style="max-height:100vh; width:auto; object-fit:contain;">`,
+choices: "ALL_KEYS"
 });
 
 /* ---------- BLOCKS ---------- */
@@ -322,9 +322,9 @@ timeline.push(makeBlockInstruction(InstBloc3));
 runBlock(block3_training,3,"training");
 
 timeline.push({
-type:jsPsychImageKeyboardResponse,
-stimulus:Break3,
-choices:["a","l"]
+type: jsPsychHtmlKeyboardResponse,
+stimulus: `<img src="${Break3}" style="max-height:100vh; width:auto; object-fit:contain;">`,
+choices: ["a","l"]
 });
 
 runBlock(block3_test,3,"test");
@@ -336,9 +336,9 @@ timeline.push(makeBlockInstruction(InstBloc5));
 runBlock(block5_training,5,"training");
 
 timeline.push({
-type:jsPsychImageKeyboardResponse,
-stimulus:Break5,
-choices:["a","l"]
+type: jsPsychHtmlKeyboardResponse,
+stimulus: `<img src="${Break5}" style="max-height:100vh; width:auto; object-fit:contain;">`,
+choices: ["a","l"]
 });
 
 runBlock(block5_test,5,"test");
@@ -346,9 +346,9 @@ runBlock(block5_test,5,"test");
 /* ---------- END ---------- */
 
 timeline.push({
-type:jsPsychImageKeyboardResponse,
-stimulus:"end.jpg",
-choices:["a","l"," "]
+type: jsPsychHtmlKeyboardResponse,
+stimulus: `<img src="end.jpg" style="max-height:90vh; width:auto; object-fit:contain;">`,
+choices: ["a","l"," "]
 });
 
 timeline.push({
@@ -358,6 +358,7 @@ fullscreen_mode:false
 
 
 jsPsych.run(timeline);
+
 
 
 
