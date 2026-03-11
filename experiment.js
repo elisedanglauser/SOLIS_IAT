@@ -62,18 +62,19 @@ a.click();
 const uploadCode = "0UC7ZFmYMKNWnOyB3dxOYVJ6RBuUOMcxy";
 
 const formData = new FormData();
+formData.append("upload_code", uploadCode);
 formData.append("files", blob, filename);
 
-fetch(`https://u.pcloud.link/publink/upload?code=${uploadCode}`, {
+fetch("https://e.pcloud.com/uploadfile", {
   method: "POST",
   body: formData
 })
-.then(response => response.json())
+.then(res => res.json())
 .then(data => {
   console.log("pCloud upload success:", data);
 })
-.catch(error => {
-  console.error("pCloud upload error:", error);
+.catch(err => {
+  console.error("pCloud upload failed:", err);
 });
 
 
@@ -358,3 +359,4 @@ fullscreen_mode:false
 
 
 jsPsych.run(timeline);
+
