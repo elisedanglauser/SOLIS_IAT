@@ -244,7 +244,7 @@ function makePersistentTrial(stimulus,key,block,type){
 
 return{
 type:jsPsychHtmlKeyboardResponse,
-stimulus:`<img src="${stimulus}" style="max-height:80vh;max-width:60vw;">`,
+stimulus:`<img src="${stimulus}" style="width:900px;height:600px;object-fit:contain;">`,
 choices:"NO_KEYS",
 trial_duration:null,
 
@@ -358,6 +358,7 @@ fullscreen_mode:false
 
 
 jsPsych.run(timeline);
+
 
 
 
