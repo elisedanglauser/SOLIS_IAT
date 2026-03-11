@@ -43,7 +43,7 @@ const jsPsych = initJsPsych({
       ].join(",") + "\n";
     });
 
-    const filename = `${participant}_${timestamp}_results.csv`;
+    const filename = `${participant}_${timestamp}_ERIAT.csv`;
 
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
@@ -358,6 +358,7 @@ fullscreen_mode:false
 
 
 jsPsych.run(timeline);
+
 
 
 
