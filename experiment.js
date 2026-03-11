@@ -67,7 +67,7 @@ const jsPsych = initJsPsych({
     formData.append("code", uploadCode);
     formData.append("files", blob, filename);
 
-    fetch("https://api.pcloud.com/uploadtolink", {
+    fetch("https://eapi.pcloud.com/uploadtolink", {
       method: "POST",
       body: formData
     })
@@ -361,6 +361,7 @@ fullscreen_mode:false
 
 
 jsPsych.run(timeline);
+
 
 
 
